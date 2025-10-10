@@ -1,0 +1,80 @@
+{
+  "services": [
+    {
+      "region": "USA (DHL)",
+      "type": "Duty Unpaid",
+      "destinations": [
+        { "name": "USA (DHL)", "tat": "6-8 DAYS", "rates": { "6": 1357, "7": 1298, "8": 1239, "9": 1180, "10": 1179, "15": 1179, "21": 1179 } }
+      ]
+    },
+    {
+      "region": "Canada (DHL)",
+      "type": "Duty Unpaid",
+      "destinations": [
+        { "name": "Canada (DHL)", "tat": "8-10 DAYS", "rates": { "6": 1357, "7": 1298, "8": 1239, "9": 1180, "10": 1179, "15": 1179, "21": 1179 } }
+      ]
+    },
+    {
+      "region": "Rest of Europe (DHL)",
+      "type": "Duty Unpaid",
+      "destinations": [
+        { "name": "Rest of Europe (DHL)", "tat": "12-15 DAYS", "rates": { "6": 1003, "7": 974, "8": 944, "9": 915, "10": 885, "15": 885, "21": 856 } }
+      ]
+    },
+    {
+      "region": "Australia/New Zealand (DHL)",
+      "type": "Duty Unpaid",
+      "destinations": [
+        { "name": "Australia/New Zealand (DHL)", "tat": "10-12 DAYS", "rates": { "6": 1328, "7": 1298, "8": 1239, "9": 1180, "10": 1179, "15": 1151, "21": 1121 } }
+      ]
+    },
+    {
+      "region": "USA",
+      "type": "Duty Paid",
+      "destinations": [
+        { "name": "USA - Zones 2-5", "states": ["Connecticut", "District of Columbia", "New Jersey", "New York", "Rhode Island", "Delaware", "Massachusetts", "Maryland", "North Carolina", "Pennsylvania", "Virginia", "Maine", "Michigan", "Ohio", "South Carolina", "Vermont", "Alabama", "Florida", "Georgia", "Illinois", "Indiana", "Kentucky", "Missouri", "Tennessee", "Wisconsin"], "tat": "10-12 DAYS", "rates": { "6": 1297, "7": 1269, "8": 1239, "9": 1210, "10": 1210, "15": 1179, "21": 1121 } },
+        { "name": "USA - Zones 6-7", "states": ["Iowa", "Kansas", "Minnesota", "North Dakota", "Nebraska", "South Dakota", "Arkansas", "Colorado", "Louisiana", "Oklahoma", "Texas", "Wyoming"], "tat": "12-14 DAYS", "rates": { "6": 1357, "7": 1357, "8": 1328, "9": 1298, "10": 1298, "15": 1239, "21": 1179 } },
+        { "name": "USA - Zone 8", "states": ["Arizona", "California", "Idaho", "Montana", "New Mexico", "Nevada", "Oregon", "Utah", "Washington"], "tat": "12-16 DAYS", "rates": { "6": 1415, "7": 1387, "8": 1357, "9": 1345, "10": 1345, "15": 1297, "21": 1269 } }
+      ]
+    },
+    {
+        "region": "UK",
+        "type": "Duty Paid",
+        "destinations": [
+            { "name": "UK", "tat": "6-8 DAYS", "rates": { "6": 767, "7": 738, "8": 708, "9": 679, "10": 649, "15": 649, "21": 620 } }
+        ]
+    },
+    {
+      "region": "Europe",
+      "type": "Duty Paid",
+      "destinations": [
+        { "name": "Austria", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 728 } },
+        { "name": "Belgium", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 728 } },
+        { "name": "Bulgaria", "tat": "10-12 Days", "lowWeight": { "base": 2210, "addl": 390 }, "rates": { "6": 1053, "8": 975, "11": 890.5, "16": 871, "21": 864.5, "26": 858 } },
+        { "name": "Croatia", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Czech Republic", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Denmark", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Estonia", "tat": "10-12 Days", "lowWeight": { "base": 2210, "addl": 390 }, "rates": { "6": 1053, "8": 975, "11": 890.5, "16": 871, "21": 864.5, "26": 851.5 } },
+        { "name": "Finland", "tat": "10-12 Days", "lowWeight": { "base": 2210, "addl": 390 }, "rates": { "6": 1053, "8": 975, "11": 890.5, "16": 871, "21": 864.5, "26": 851.5 } },
+        { "name": "France", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 721.5 } },
+        { "name": "Germany", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 325 }, "rates": { "6": 858, "8": 793, "11": 760.5, "16": 741, "21": 728, "26": 721.5 } },
+        { "name": "Greece", "tat": "10-12 Days", "lowWeight": { "base": 2210, "addl": 390 }, "rates": { "6": 1053, "8": 975, "11": 890.5, "16": 741, "21": 864.5, "26": 851.5 } },
+        { "name": "Hungary", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Ireland", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Italy", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Latvia", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Lithuania", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Luxembourg", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 721.5 } },
+        { "name": "Monaco", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 721.5 } },
+        { "name": "Netherlands", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 721.5 } },
+        { "name": "Poland", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 721.5 } },
+        { "name": "Portugal", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 721.5 } },
+        { "name": "Romania", "tat": "10-12 Days", "lowWeight": { "base": 2210, "addl": 390 }, "rates": { "6": 1053, "8": 975, "11": 890.5, "16": 871, "21": 864.5, "26": 851.5 } },
+        { "name": "Slovakia", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 825.5, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Slovenia", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 357.5 }, "rates": { "6": 897, "8": 858, "11": 793, "16": 760.5, "21": 741, "26": 721.5 } },
+        { "name": "Spain", "tat": "10-12 Days", "lowWeight": { "base": 1885, "addl": 390 }, "rates": { "6": 988, "8": 884, "11": 793, "16": 780, "21": 780, "26": 767 } },
+        { "name": "Sweden", "tat": "10-12 Days", "lowWeight": { "base": 2210, "addl": 390 }, "rates": { "6": 1053, "8": 975, "11": 890.5, "16": 871, "21": 864.5, "26": 851.5 } }
+      ]
+    }
+  ]
+}
