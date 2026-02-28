@@ -12,7 +12,7 @@ body {
     background-position: center;
 }
 
-/* --- NEW HEADER STYLES --- */
+/* --- HEADER STYLES --- */
 header {
     transition: background-color 0.3s ease, box-shadow 0.3s ease, border-bottom-color 0.3s ease;
     border-bottom: 1px solid transparent;
@@ -46,8 +46,6 @@ header.header-scrolled {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
-/* --- END NEW HEADER STYLES --- */
-
 
 .calc-tab-btn {
     transition: all 0.3s ease;
@@ -128,60 +126,7 @@ header.header-scrolled {
     }
 }
 
-
 .image-grid-item:hover .image-grid-text {
     transform: translateY(0);
     opacity: 1;
-}
-
-/* --- New Styles for Discount Feature --- */
-
-/* Glowing Animation for the Button */
-@keyframes glow {
-  0%, 100% { 
-    box-shadow: 0 0 5px #22c55e, 0 0 10px #22c55e, 0 0 15px #22c55e;
-  }
-  50% { 
-    box-shadow: 0 0 20px #22c55e, 0 0 30px #22c55e, 0 0 40px #22c55e;
-  }
-}
-
-.glow-button {
-  animation: glow 2s infinite;
-  border: 2px solid #16a34a;
-}
-
-/* Modal (Popup) Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  max-width: 500px;
-  width: 90%;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  transform: scale(0.95);
-  transition: transform 0.3s ease;
-}
-.modal-overlay.active .modal-content {
-    transform: scale(1);
 }
