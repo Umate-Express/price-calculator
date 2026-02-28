@@ -25,12 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tablePaidContainer: document.getElementById('table-paid-container'),
         mobileMenuButton: document.getElementById('mobile-menu-button'),
         mobileMenu: document.getElementById('mobile-menu'),
-        // Modal elements
-        discountModal: document.getElementById('discount-modal'),
-        closeModalBtn: document.getElementById('close-modal-btn'),
-        modalOriginalPrice: document.getElementById('modal-original-price'),
-        modalDiscountAmount: document.getElementById('modal-discount-amount'),
-        modalFinalPrice: document.getElementById('modal-final-price'),
         // Volumetric elements
         toggleDimsUnpaid: document.getElementById('toggle-dims-unpaid'),
         dimsContainerUnpaid: document.getElementById('dims-container-unpaid'),
@@ -198,15 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 originalCost = applicableRate * billableWeight;
                 calculationDetails = `₹${applicableRate.toFixed(2)}/kg × ${billableWeight.toFixed(2)}kg.`;
             }
-
-            const discountAmount = originalCost * 0.05;
-            const finalCost = originalCost - discountAmount;
-
-            window.discountData = {
-                original: originalCost,
-                discount: discountAmount,
-                final: finalCost
-            };
             
             let resultHTML = `
                 <div class="bg-white border border-slate-200 rounded-xl shadow-lg text-left mt-6">
@@ -252,21 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 ${contactButtonsHTML}
-                <div class="mt-8 text-center">
-                    <button id="claim-discount-btn" class="bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold py-4 px-8 rounded-lg text-lg hover:from-orange-600 hover:to-red-700 transition-all transform hover:-translate-y-1 shadow-lg">
-                        <span class="mr-2">🎁</span> Click for a Surprise Discount!
-                    </button>
-                </div>
             `;
             
             resultDiv.innerHTML = resultHTML;
-
-            document.getElementById('claim-discount-btn').addEventListener('click', () => {
-                dom.modalOriginalPrice.textContent = `₹${window.discountData.original.toFixed(2)}`;
-                dom.modalDiscountAmount.textContent = `-₹${window.discountData.discount.toFixed(2)}`;
-                dom.modalFinalPrice.textContent = `₹${window.discountData.final.toFixed(2)}`;
-                dom.discountModal.classList.add('active');
-            });
         }
     };
     
@@ -296,9 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
             setupForm('form-unpaid', dom.regionUnpaid, dom.destContainerUnpaid, dom.destUnpaid, document.getElementById('weight-unpaid'), dom.resultUnpaidDiv, 'Duty Unpaid', dom.toggleDimsUnpaid, dom.dimsContainerUnpaid);
             setupForm('form-paid', dom.regionPaid, dom.destContainerPaid, dom.destPaid, document.getElementById('weight-paid'), dom.resultPaidDiv, 'Duty Paid', dom.toggleDimsPaid, dom.dimsContainerPaid);
             
-            dom.closeModalBtn.addEventListener('click', () => dom.discountModal.classList.remove('active'));
-            dom.discountModal.addEventListener('click', (e) => { if (e.target === dom.discountModal) dom.discountModal.classList.remove('active'); });
-
             // Tab switching and mobile menu
             dom.calcTabUnpaid.addEventListener('click', () => {
                 dom.calcTabPaid.classList.remove('active'); dom.calcTabUnpaid.classList.add('active');
