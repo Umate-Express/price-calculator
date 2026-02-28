@@ -4,7 +4,19 @@
       "region": "USA (DHL)",
       "type": "Duty Unpaid",
       "destinations": [
-        { "name": "USA (DHL)", "tat": "6-8 DAYS", "rates": { "6": 1357, "7": 1298, "8": 1239, "9": 1180, "10": 1179, "11": 1179, "16": 1179 } }
+        {
+          "name": "USA (DHL)",
+          "tat": "6-8 DAYS",
+          "rates": {
+            "6": 1492.7,
+            "7": 1427.8,
+            "8": 1362.9,
+            "9": 1298,
+            "10": 1296.9,
+            "11": 1296.9,
+            "16": 1296.9
+          }
+        }
       ]
     },
     {
@@ -32,9 +44,48 @@
       "region": "USA",
       "type": "Duty Paid",
       "destinations": [
-        { "name": "USA - Zones 2-5", "states": ["Connecticut", "District of Columbia", "New Jersey", "New York", "Rhode Island", "Delaware", "Massachusetts", "Maryland", "North Carolina", "Pennsylvania", "Virginia", "Maine", "Michigan", "Ohio", "South Carolina", "Vermont", "Alabama", "Florida", "Georgia", "Illinois", "Indiana", "Kentucky", "Missouri", "Tennessee", "Wisconsin"], "tat": "10-12 DAYS", "rates": { "6": 1297, "7": 1269, "8": 1239, "9": 1210, "10": 1210, "11": 1179, "16": 1121 } },
-        { "name": "USA - Zones 6-7", "states": ["Iowa", "Kansas", "Minnesota", "North Dakota", "Nebraska", "South Dakota", "Arkansas", "Colorado", "Louisiana", "Oklahoma", "Texas", "Wyoming"], "tat": "12-14 DAYS", "rates": { "6": 1357, "7": 1357, "8": 1328, "9": 1298, "10": 1298, "11": 1239, "16": 1179 } },
-        { "name": "USA - Zone 8", "states": ["Arizona", "California", "Idaho", "Montana", "New Mexico", "Nevada", "Oregon", "Utah", "Washington"], "tat": "12-16 DAYS", "rates": { "6": 1415, "7": 1387, "8": 1357, "9": 1345, "10": 1345, "11": 1297, "16": 1269 } }
+        {
+          "name": "USA - Zones 2-5",
+          "states": ["Connecticut", "District of Columbia", "New Jersey", "New York", "Rhode Island", "Delaware", "Massachusetts", "Maryland", "North Carolina", "Pennsylvania", "Virginia", "Maine", "Michigan", "Ohio", "South Carolina", "Vermont", "Alabama", "Florida", "Georgia", "Illinois", "Indiana", "Kentucky", "Missouri", "Tennessee", "Wisconsin"],
+          "tat": "10-12 DAYS",
+          "rates": {
+            "6": 1426.7,
+            "7": 1395.9,
+            "8": 1362.9,
+            "9": 1331,
+            "10": 1331,
+            "11": 1296.9,
+            "16": 1233.1
+          }
+        },
+        {
+          "name": "USA - Zones 6-7",
+          "states": ["Iowa", "Kansas", "Minnesota", "North Dakota", "Nebraska", "South Dakota", "Arkansas", "Colorado", "Louisiana", "Oklahoma", "Texas", "Wyoming"],
+          "tat": "12-14 DAYS",
+          "rates": {
+            "6": 1492.7,
+            "7": 1492.7,
+            "8": 1460.8,
+            "9": 1427.8,
+            "10": 1427.8,
+            "11": 1362.9,
+            "16": 1296.9
+          }
+        },
+        {
+          "name": "USA - Zone 8",
+          "states": ["Arizona", "California", "Idaho", "Montana", "New Mexico", "Nevada", "Oregon", "Utah", "Washington"],
+          "tat": "12-16 DAYS",
+          "rates": {
+            "6": 1556.5,
+            "7": 1525.7,
+            "8": 1492.7,
+            "9": 1479.5,
+            "10": 1479.5,
+            "11": 1426.7,
+            "16": 1395.9
+          }
+        }
       ]
     },
     {
@@ -77,5 +128,4 @@
       ]
     }
   ]
-
 }
