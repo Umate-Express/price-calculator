@@ -19,10 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         destPaid: document.getElementById('destination-paid'),
         resultUnpaidDiv: document.getElementById('result-unpaid'),
         resultPaidDiv: document.getElementById('result-paid'),
-        tableTabUnpaid: document.getElementById('table-tab-unpaid'),
-        tableTabPaid: document.getElementById('table-tab-paid'),
-        tableUnpaidContainer: document.getElementById('table-unpaid-container'),
-        tablePaidContainer: document.getElementById('table-paid-container'),
         mobileMenuButton: document.getElementById('mobile-menu-button'),
         mobileMenu: document.getElementById('mobile-menu'),
         // Volumetric elements
@@ -95,47 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
-        createTableHTML: (data) => {
-            let table = `<table class="min-w-full divide-y divide-slate-200">
-                <thead class="bg-slate-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Destination</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Weight Bracket</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Rate</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-slate-200">`;
-
-            data.forEach(s => {
-                s.destinations.forEach(d => {
-                    const rateKeys = Object.keys(d.rates);
-                    const rowCount = d.lowWeight ? rateKeys.length + 2 : rateKeys.length;
-                    
-                    table += `<tr><td class="px-6 py-4 font-medium text-slate-800" rowspan="${rowCount}">${d.name}</td>`;
-                    
-                    if (d.lowWeight) {
-                        table += `<td class="px-6 py-4 text-sm text-slate-700">Up to 0.500 Kg</td><td class="px-6 py-4 text-sm text-slate-700">₹${d.lowWeight.base.toFixed(2)}</td></tr>
-                                  <tr><td class="px-6 py-4 text-sm text-slate-700">Additional 500g</td><td class="px-6 py-4 text-sm text-slate-700">₹${d.lowWeight.addl.toFixed(2)}</td></tr>`;
-                        rateKeys.forEach(key => {
-                            table += `<tr><td class="px-6 py-4 text-sm text-slate-700">${key}kg+ (per kg)</td><td class="px-6 py-4 text-sm text-slate-700">₹${d.rates[key].toFixed(2)}</td></tr>`;
-                        });
-                    } else {
-                        table += `<td class="px-6 py-4 text-sm text-slate-700">Up to ${rateKeys[0]}kg</td><td class="px-6 py-4 text-sm text-slate-700">₹${d.rates[rateKeys[0]]}/kg</td></tr>`;
-                        for (let i = 1; i < rateKeys.length; i++) {
-                            table += `<tr><td class="px-6 py-4 text-sm text-slate-700">Up to ${rateKeys[i]}kg</td><td class="px-6 py-4 text-sm text-slate-700">₹${d.rates[rateKeys[i]]}/kg</td></tr>`;
-                        }
-                    }
-                });
-            });
-            table += '</tbody></table>';
-            return table;
-        },
-
-        populateRateTables: () => {
-            dom.tableUnpaidContainer.innerHTML = ui.createTableHTML(servicesData.filter(s => s.type === 'Duty Unpaid'));
-            dom.tablePaidContainer.innerHTML = ui.createTableHTML(servicesData.filter(s => s.type === 'Duty Paid'));
-        },
-
         setupAnimations: () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -153,8 +108,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const logic = {
         calculateAndDisplay: (destName, weight, resultDiv, dims, serviceType) => {
             resultDiv.innerHTML = '';
+            
+            // Basic validation
             if (!destName || !weight || weight <= 0) {
                 resultDiv.innerHTML = `<div class="bg-red-100 border border-red-300 p-4 rounded-lg text-red-800"><p class="font-semibold">Please select a destination and enter a valid weight.</p></div>`;
+                return;
+            }
+
+            // Min weight 6kg validation for better pricing
+            if (weight < 6) {
+                resultDiv.innerHTML = `
+                    <div class="bg-orange-50 border border-orange-200 p-5 rounded-xl text-orange-800 shadow-sm text-left">
+                        <p class="font-bold text-lg mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            Looking for a better price?
+                        </p>
+                        <p class="text-sm">We currently offer our best discounted rates for shipments of <strong>6kg or more</strong>. Please increase your shipment weight to 6kg or above to see our pricing.</p>
+                    </div>`;
                 return;
             }
 
@@ -173,6 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let originalCost = 0;
             let calculationDetails = '';
 
+            // Note: Since we block weights < 6kg, the lowWeight logic may not trigger, 
+            // but it remains just in case billableWeight scales it differently.
             if (service.lowWeight && billableWeight < 6) {
                 if (billableWeight <= 0.5) {
                     originalCost = service.lowWeight.base;
@@ -278,14 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dom.calcTabUnpaid.classList.remove('active'); dom.calcTabPaid.classList.add('active');
                 dom.calcContentUnpaid.classList.add('hidden'); dom.calcContentPaid.classList.remove('hidden');
             });
-            dom.tableTabUnpaid.addEventListener('click', () => {
-                dom.tableTabPaid.classList.remove('active'); dom.tableTabUnpaid.classList.add('active');
-                dom.tablePaidContainer.classList.add('hidden'); dom.tableUnpaidContainer.classList.remove('hidden');
-            });
-            dom.tableTabPaid.addEventListener('click', () => {
-                dom.tableTabUnpaid.classList.remove('active'); dom.tableTabPaid.classList.add('active');
-                dom.tableUnpaidContainer.classList.add('hidden'); dom.tablePaidContainer.classList.remove('hidden');
-            });
+            
             dom.mobileMenuButton.addEventListener('click', () => dom.mobileMenu.classList.toggle('hidden'));
             
             // Header scroll effect
@@ -310,7 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
             allDestinations = servicesData.flatMap(s => s.destinations);
             
             ui.populateRegionDropdowns();
-            ui.populateRateTables();
             ui.setupAnimations();
             events.bind();
         } catch (error) {
