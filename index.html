@@ -13,7 +13,9 @@
 <body class="bg-slate-100 text-slate-800">
 
     <header class="fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+        
+
+        <div class="container mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center">
             <a href="#" class="flex items-center">
                 <img src="img/logo.png" alt="Umate Express Logo" class="h-12">
             </a>
@@ -23,31 +25,51 @@
                 <a href="#testimonials" class="nav-link text-slate-600 hover:text-orange-500">Testimonials</a>
                 <a href="#contact" class="nav-link text-slate-600 hover:text-orange-500">Contact</a>
             </nav>
-            <a href="#calculator" class="hidden md:flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-5 py-2.5 rounded-lg hover:shadow-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:-translate-y-0.5">
-                <span>Get a Quote</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-            </a>
+            <div class="hidden md:flex items-center space-x-3">
+                <a href="track.html" class="flex items-center space-x-1.5 text-slate-700 hover:text-orange-600 font-semibold px-4 py-2 rounded-lg border border-slate-300 hover:border-orange-500 bg-white/80 hover:bg-white transition-all text-sm shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <span>Track Parcel</span>
+                </a>
+                <a href="#calculator" class="flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-5 py-2 rounded-lg hover:shadow-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:-translate-y-0.5 text-sm">
+                    <span>Get a Quote</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
             <button class="md:hidden" id="mobile-menu-button">
                  <svg class="w-6 h-6 text-slate-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
         </div>
-         <div class="md:hidden hidden bg-white" id="mobile-menu">
-            <a href="#services" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100">Services</a>
-            <a href="#how-it-works" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100">Process</a>
-            <a href="#testimonials" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100">Testimonials</a>
-            <a href="#contact" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100">Contact</a>
-            <a href="#calculator" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100">Get a Quote</a>
+        <div class="md:hidden hidden bg-white border-b border-slate-200 shadow-xl" id="mobile-menu">
+            <a href="track.html" class="flex items-center justify-between py-3 px-4 text-sm font-bold text-orange-600 bg-orange-50 hover:bg-orange-100 border-b border-orange-100">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    Track Your Parcel
+                </span>
+                <span>→</span>
+            </a>
+            <a href="#services" class="block py-2.5 px-4 text-sm text-slate-700 hover:bg-slate-100">Services</a>
+            <a href="#how-it-works" class="block py-2.5 px-4 text-sm text-slate-700 hover:bg-slate-100">Process</a>
+            <a href="#testimonials" class="block py-2.5 px-4 text-sm text-slate-700 hover:bg-slate-100">Testimonials</a>
+            <a href="#contact" class="block py-2.5 px-4 text-sm text-slate-700 hover:bg-slate-100">Contact</a>
+            <a href="#calculator" class="block py-2.5 px-4 text-sm text-orange-600 font-bold hover:bg-slate-100">Get a Quote</a>
         </div>
     </header>
     <main>
 
-        <section id="calculator" class="hero-bg py-20 sm:py-24 pt-40"> <div class="container mx-auto px-4 sm:px-6 text-center">
+        <section id="calculator" class="hero-bg py-20 sm:py-24 pt-44"> <div class="container mx-auto px-4 sm:px-6 text-center">
                 
-                <div class="mb-8">
+                <div class="mb-4">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-orange-500/20 via-amber-500/20 to-red-500/20 border border-orange-400/40 text-orange-300 mb-4 backdrop-blur-md shadow-lg">
+                        <span>✨ Festive Offer</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse"></span>
+                        <span>USA Courier at just <strong>₹1,100/kg*</strong> (Above 21kg)</span>
+                    </div>
                     <h1 class="text-5xl md:text-6xl font-black text-white tracking-tight uppercase [text-shadow:_2px_2px_8px_rgb(0_0_0_/_30%)]">
                         Umate Express
                     </h1>
@@ -55,17 +77,42 @@
                         Global Courier Services
                     </p>
                 </div>
-                <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-300 mb-10">
+                <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-300 mb-6">
                     Get an instant estimate for your fast, reliable, global shipment.
                 </p>
+
+                <!-- Trust Badges Strip -->
+                <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 mb-8 text-xs sm:text-sm font-medium text-slate-200">
+                    <div class="flex items-center space-x-1.5 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 shadow-sm">
+                        <span class="text-amber-400">★★★★★</span>
+                        <span class="font-bold text-white">4.9/5</span>
+                        <span class="text-slate-300">(500+ Reviews)</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 shadow-sm">
+                        <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                        <span>Doorstep Pickup</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 shadow-sm">
+                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                        <span>100% Trusted & Trackable</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 shadow-sm">
+                        <span>🌍</span>
+                        <span>220+ Countries</span>
+                    </div>
+                </div>
+
             <div style="text-align: center; margin: 20px auto; padding: 12px 20px; background-color: white; border-radius: 12px; max-width: 280px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
-    <img src="img/partner-logos.png" alt="FedEx, UPS, DHL Logos" style="width: 100%; height: auto; display: block; margin: 0 auto;">
-</div>
+                <img src="img/partner-logos.png" alt="FedEx, UPS, DHL Logos" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+            </div>
                 
                 <div class="max-w-4xl mx-auto bg-white p-4 sm:p-6 rounded-2xl shadow-2xl">
                     <div class="flex items-center border-b border-slate-200 mb-6">
                         <h3 class="text-xl font-bold text-slate-800 pb-4">Rate Calculator</h3>
-                        <a href="track.html" class="ml-auto text-sm font-semibold text-orange-600 bg-orange-100 px-4 py-2 rounded-full hover:bg-orange-200 transition-colors">Track Parcel</a>
+                        <a href="track.html" class="ml-auto text-sm font-semibold text-orange-600 bg-orange-100 px-4 py-2 rounded-full hover:bg-orange-200 transition-colors flex items-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                            <span>Track Parcel</span>
+                        </a>
                     </div>
                     
                     <div class="flex bg-slate-100 p-1 rounded-full mb-6">
@@ -258,16 +305,19 @@
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="bg-white p-8 rounded-xl shadow-lg testimonial-card">
+                        <div class="flex text-amber-400 mb-2">★★★★★</div>
                         <p class="text-slate-700 mb-4">"Umate Express made sending a package to my family in the UK incredibly easy. The price was great and it arrived faster than I expected. Highly recommend!"</p>
                         <div class="font-bold text-slate-900">- Anjali S.</div>
                         <div class="text-sm text-slate-500">Mumbai, India</div>
                     </div>
                      <div class="bg-white p-8 rounded-xl shadow-lg testimonial-card">
+                        <div class="flex text-amber-400 mb-2">★★★★★</div>
                         <p class="text-slate-700 mb-4">"The duty-paid option for the US was a lifesaver. No surprise fees for the recipient. The entire process was smooth and professional."</p>
                         <div class="font-bold text-slate-900">- Raj P.</div>
                         <div class="text-sm text-slate-500">Pune, India</div>
                     </div>
                      <div class="bg-white p-8 rounded-xl shadow-lg testimonial-card">
+                        <div class="flex text-amber-400 mb-2">★★★★★</div>
                         <p class="text-slate-700 mb-4">"Fantastic service! The team was super helpful on WhatsApp, answering all my questions for a shipment to Germany. Will definitely use them again."</p>
                         <div class="font-bold text-slate-900">- Priya K.</div>
                         <div class="text-sm text-slate-500">Bangalore, India</div>
@@ -297,7 +347,9 @@
                     <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
                     <ul class="space-y-2 text-slate-400">
                         <li><a href="#calculator" class="hover:text-white">Rate Calculator</a></li>
+                        <li><a href="track.html" class="hover:text-white">Track Parcel</a></li>
                         <li><a href="#services" class="hover:text-white">Our Services</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white">How It Works</a></li>
                     </ul>
                 </div>
                 <div>
@@ -325,6 +377,18 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating WhatsApp Quick-Chat Widget -->
+    <a href="https://wa.me/919325552513?text=Hi%20Umate%20Express%2C%20I%20have%20an%20enquiry%20regarding%20international%20courier%20services." target="_blank" class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl hover:scale-110 transition-all duration-300 group" aria-label="Chat on WhatsApp">
+        <span class="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-green-500"></span>
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.387 1.88 6.06l-1.429 5.215 5.045-1.328zM9.351 8.29c-.196-.288-.45-.447-.72-.451-.271-.004-.543.015-.794.046-.252.031-.539.11-.795.331-.255.22-.525.539-.684.87-.159.331-.318.684-.331 1.054-.013.37.063.73.222 1.074.159.344.38.685.636.99.255.304.574.636.951.99.377.354.795.684 1.238.99.525.344 1.05.623 1.636.82.585.196 1.157.294 1.733.307.576.013 1.14-.098 1.636-.344.496-.246.892-.608 1.157-.99.266-.381.447-.824.524-1.29.078-.466.063-1.012-.046-1.464-.109-.452-.331-.839-.623-1.14-.292-.302-.684-.467-1.129-.496-.445-.028-.89.046-1.29.222-.399.176-.684.451-.927.795-.242.344-.45.73-.623.99s-.331.381-.496.425c-.165.043-.344.031-.509-.046-.165-.078-.381-.222-.636-.425-.255-.203-.541-.466-.867-.795-.325-.331-.608-.719-.824-1.14a4.575 4.575 0 0 1-.585-1.413c-.046-.222-.031-.452.046-.684.078-.231.222-.425.425-.574.203-.148.425-.222.684-.234.259-.013.509.031.703.117.195.086.344.176.45.294s.195.255.255.381c.061.125.093.255.093.381v.004c-.013.125-.061.255-.132.381-.071.125-.176.222-.294.294-.118.071-.255.109-.408.109-.153 0-.3-.046-.425-.118-.125-.07-.222-.176-.294-.294-.07-.118-.109-.255-.109-.408 0-.153.046-.3.118-.425.07-.125.176-.222.294-.294.118-.071.255-.118.408-.118.153 0 .3.046.425.117s.222.176.294.294c.07.118.109.255.109.408v.016c-.013.153-.061.294-.148.425-.086.132-.203.255-.331.344-.128.09-.283.148-.45.176-.168.028-.344.016-.509-.046-.165-.062-.317-.148-.45-.266-.132-.118-.255-.255-.344-.425-.09-.171-.148-.354-.176-.541-.028-.187-.016-.37.031-.541.048-.171.125-.331.222-.48.098-.148.222-.283.361-.399.139-.118.294-.222.466-.294.171-.071.344-.118.539-.132.195-.013.381 0 .56.046.179.047.344.118.496.222.153.105.283.231.381.381.098.151.168.317.203.496.035.179.047.354.031.541-.016.187-.07.354-.148.509-.078.155-.176.294-.294.425-.118.131-.255.255-.408.344-.153.09-.317.168-.496.222-.178.054-.369.086-.56.086-.207 0-.414-.04-.61-.118-.195-.078-.37-.176-.539-.294-.17-.118-.318-.266-.45-.425-.132-.159-.237-.344-.318-.541-.08-.196-.118-.408-.118-.623 0-.222.046-.431.118-.636.072-.205.176-.381.294-.539.118-.159.255-.294.425-.408.171-.114.354-.195.541-.255.187-.061.381-.093.576-.093.207 0 .408.04.585.109.177.07.344.168.496.283.153.114.283.255.399.408.117.153.203.317.266.496.062.179.093.369.093.56v.004z"/></svg>
+        <span class="hidden md:group-hover:block absolute right-16 bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-xl">
+            Chat on WhatsApp
+        </span>
+    </a>
 
     <script src="app.js"></script> 
 </body>
