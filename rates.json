@@ -1,11 +1,11 @@
 {
   "services": [
     {
-      "region": "USA (DHL)",
+      "region": "USA",
       "type": "Duty Unpaid",
       "destinations": [
         {
-          "name": "USA (DHL)",
+          "name": "USA",
           "tat": "6-8 DAYS",
           "rates": {
             "6": 1542.7,
@@ -20,24 +20,24 @@
       ]
     },
     {
-      "region": "Canada (DHL)",
+      "region": "Canada",
       "type": "Duty Unpaid",
       "destinations": [
-        { "name": "Canada (DHL)", "tat": "8-10 DAYS", "rates": { "6": 1507, "7": 1448, "8": 1389, "9": 1330, "10": 1329, "11": 1329, "16": 1329 } }
+        { "name": "Canada", "tat": "8-10 DAYS", "rates": { "6": 1507, "7": 1448, "8": 1389, "9": 1330, "10": 1329, "11": 1329, "16": 1329 } }
       ]
     },
     {
-      "region": "Rest of Europe (DHL)",
+      "region": "Rest of Europe",
       "type": "Duty Unpaid",
       "destinations": [
-        { "name": "Rest of Europe (DHL)", "tat": "12-15 DAYS", "rates": { "6": 1153, "7": 1124, "8": 1094, "9": 1065, "10": 1035, "11": 1035, "16": 1006 } }
+        { "name": "Rest of Europe", "tat": "12-15 DAYS", "rates": { "6": 1153, "7": 1124, "8": 1094, "9": 1065, "10": 1035, "11": 1035, "16": 1006 } }
       ]
     },
     {
-      "region": "Australia/New Zealand (DHL)",
+      "region": "Australia/New Zealand",
       "type": "Duty Unpaid",
       "destinations": [
-        { "name": "Australia/New Zealand (DHL)", "tat": "10-12 DAYS", "rates": { "6": 1478, "7": 1448, "8": 1389, "9": 1330, "10": 1329, "11": 1301, "16": 1271 } }
+        { "name": "Australia/New Zealand", "tat": "10-12 DAYS", "rates": { "6": 1478, "7": 1448, "8": 1389, "9": 1330, "10": 1329, "11": 1301, "16": 1271 } }
       ]
     },
     {
