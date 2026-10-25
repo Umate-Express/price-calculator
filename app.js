@@ -54,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         handleRegionChange: (regionSelect, destContainer, destSelect, serviceType) => {
             const selectedRegion = regionSelect.value;
-            const needsSecondDropdown = ["USA", "Europe"].includes(selectedRegion);
+            // Only 'USA' (Zones) and 'Europe' in Duty Paid have sub-options (States / Countries)
+            const needsSecondDropdown = (selectedRegion === 'USA' && serviceType === 'Duty Paid') || (selectedRegion === 'Europe' && serviceType === 'Duty Paid');
             
             destContainer.classList.toggle('hidden', !needsSecondDropdown);
             const form = regionSelect.closest('form');
@@ -66,13 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 destSelect.innerHTML = '';
                 const service = servicesData.find(s => s.region === selectedRegion && s.type === serviceType);
-                if (service) {
+                if (service && service.destinations) {
                     if (selectedRegion === 'USA') {
                         destSelect.add(new Option('Select State', ''));
                         service.destinations.forEach(zone => {
                             const optgroup = document.createElement('optgroup');
                             optgroup.label = zone.name;
-                            zone.states.sort().forEach(state => {
+                            (zone.states || []).slice().sort().forEach(state => {
                                 const option = document.createElement('option');
                                 option.value = zone.name;
                                 option.textContent = state;
@@ -106,31 +107,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- CALCULATION LOGIC ---
     const logic = {
-        calculateAndDisplay: (destName, weight, resultDiv, dims, serviceType) => {
+        calculateTargetCost: (target, billableWeight) => {
+            let cost = 0;
+            let calculationDetails = '';
+
+            // Slabs pricing (DHL, FedEx, UPS)
+            if (target.slabs) {
+                if (billableWeight <= 5.0) {
+                    const slabKeys = Object.keys(target.slabs).map(Number).sort((a, b) => a - b);
+                    const applicableSlab = slabKeys.find(s => s >= billableWeight) || 5.0;
+                    cost = target.slabs[applicableSlab];
+                    calculationDetails = `Flat rate for up to ${applicableSlab} kg slab.`;
+                } else if (billableWeight < 6.0) {
+                    // Actual weight × 6 kg per-kg rate, with minimum floor equal to 5 kg slab rate
+                    const rate6 = target.rates["6"];
+                    const slab5 = target.slabs["5"];
+                    const rawCost = billableWeight * rate6;
+                    if (rawCost < slab5) {
+                        cost = slab5;
+                        calculationDetails = `₹${rate6.toFixed(2)}/kg × ${billableWeight.toFixed(2)}kg (min floor ₹${slab5.toFixed(2)} for 5kg slab).`;
+                    } else {
+                        cost = rawCost;
+                        calculationDetails = `₹${rate6.toFixed(2)}/kg × ${billableWeight.toFixed(2)}kg.`;
+                    }
+                } else {
+                    // 6 kg and above (Per Kg rate)
+                    const rateBrackets = Object.keys(target.rates).map(Number).sort((a, b) => a - b);
+                    let applicableBracket = rateBrackets.filter(b => b <= billableWeight).pop();
+                    if (!applicableBracket) {
+                        applicableBracket = rateBrackets[0];
+                    }
+                    const applicableRate = target.rates[applicableBracket];
+                    cost = applicableRate * billableWeight;
+                    calculationDetails = `₹${applicableRate.toFixed(2)}/kg × ${billableWeight.toFixed(2)}kg.`;
+                }
+            } else if (target.lowWeight && billableWeight < 6) {
+                // Europe low weight logic
+                if (billableWeight <= 0.5) {
+                    cost = target.lowWeight.base;
+                    calculationDetails = `Base rate for up to 0.5kg.`;
+                } else {
+                    const additionalHalfKgs = Math.ceil((billableWeight - 0.5) / 0.5);
+                    cost = target.lowWeight.base + (additionalHalfKgs * target.lowWeight.addl);
+                    calculationDetails = `₹${target.lowWeight.base.toFixed(2)} (base) + ${additionalHalfKgs} × ₹${target.lowWeight.addl.toFixed(2)} (add'l).`;
+                }
+            } else if (target.rates) {
+                const rateBrackets = Object.keys(target.rates).map(Number).sort((a, b) => a - b);
+                let applicableBracket = rateBrackets.filter(b => b <= billableWeight).pop();
+                if (!applicableBracket) {
+                    applicableBracket = rateBrackets[0];
+                }
+                const applicableRate = target.rates[applicableBracket];
+                cost = applicableRate * billableWeight;
+                calculationDetails = `₹${applicableRate.toFixed(2)}/kg × ${billableWeight.toFixed(2)}kg.`;
+            }
+
+            return { cost, calculationDetails };
+        },
+
+        calculateAndDisplay: (destName, weight, resultDiv, dims, serviceType, selectedRegion) => {
             resultDiv.innerHTML = '';
             
             // Basic validation
-            if (!destName || !weight || weight <= 0) {
-                resultDiv.innerHTML = `<div class="bg-red-100 border border-red-300 p-4 rounded-lg text-red-800"><p class="font-semibold">Please select a destination and enter a valid weight.</p></div>`;
-                return;
-            }
-
-            // Min weight 6kg validation for better pricing
-            if (weight < 6) {
-                resultDiv.innerHTML = `
-                    <div class="bg-orange-50 border border-orange-200 p-5 rounded-xl text-orange-800 shadow-sm text-left">
-                        <p class="font-bold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            Looking for a better price?
-                        </p>
-                        <p class="text-sm">We currently offer our best discounted rates for shipments of <strong>6kg or more</strong>. Please increase your shipment weight to 6kg or above to see our pricing.</p>
-                    </div>`;
-                return;
-            }
-
-            const service = allDestinations.find(s => s.name === destName);
-            if (!service) {
-                resultDiv.innerHTML = `<div class="bg-red-100 border border-red-300 p-4 rounded-lg text-red-800"><p class="font-semibold">Could not find rates for "${destName}".</p></div>`;
+            if (!destName || isNaN(weight) || weight <= 0) {
+                resultDiv.innerHTML = `<div class="bg-red-100 border border-red-300 p-4 rounded-lg text-red-800"><p class="font-semibold">Please select a destination and enter a valid weight (greater than 0 kg).</p></div>`;
                 return;
             }
 
@@ -139,36 +179,157 @@ document.addEventListener('DOMContentLoaded', () => {
                 volumetricWeight = (dims.l * dims.w * dims.h) / 5000;
             }
             const billableWeight = Math.max(weight, volumetricWeight);
+            const isVolumetric = volumetricWeight > weight;
+            const volumetricBadge = isVolumetric ? '<span class="text-xs text-orange-500 font-semibold">(Volumetric)</span>' : '';
 
-            let originalCost = 0;
-            let calculationDetails = '';
+            // Service lookup
+            const regionKey = selectedRegion || destName;
+            const service = servicesData.find(s => s.region === regionKey && s.type === serviceType);
 
-            // Note: Since we block weights < 6kg, the lowWeight logic may not trigger, 
-            // but it remains just in case billableWeight scales it differently.
-            if (service.lowWeight && billableWeight < 6) {
-                if (billableWeight <= 0.5) {
-                    originalCost = service.lowWeight.base;
-                    calculationDetails = `Base rate for up to 0.5kg.`;
-                } else {
-                    const additionalHalfKgs = Math.ceil((billableWeight - 0.5) / 0.5);
-                    originalCost = service.lowWeight.base + (additionalHalfKgs * service.lowWeight.addl);
-                    calculationDetails = `₹${service.lowWeight.base.toFixed(2)} (base) + ${additionalHalfKgs} × ₹${service.lowWeight.addl.toFixed(2)} (add'l).`;
-                }
-            } else {
-                const rateBrackets = Object.keys(service.rates).map(Number).sort((a, b) => a - b);
-                let applicableBracket = rateBrackets.filter(b => b <= billableWeight).pop();
-                if (!applicableBracket) {
-                    applicableBracket = rateBrackets.find(b => billableWeight < b) || rateBrackets[0];
-                }
-                const applicableRate = service.rates[applicableBracket];
-                originalCost = applicableRate * billableWeight;
-                calculationDetails = `₹${applicableRate.toFixed(2)}/kg × ${billableWeight.toFixed(2)}kg.`;
+            if (!service) {
+                resultDiv.innerHTML = `<div class="bg-red-100 border border-red-300 p-4 rounded-lg text-red-800"><p class="font-semibold">Could not find rates for "${destName}".</p></div>`;
+                return;
             }
-            
-            let resultHTML = `
+
+            // Comparison view (e.g., USA Duty Unpaid: 1st FedEx, 2nd DHL)
+            if (service.comparison && service.options) {
+                const fedexOption = service.options.find(o => o.carrier === 'FedEx') || service.options[0];
+                const dhlOption = service.options.find(o => o.carrier === 'DHL') || service.options[1];
+
+                const fedexCalc = logic.calculateTargetCost(fedexOption, billableWeight);
+                const dhlCalc = logic.calculateTargetCost(dhlOption, billableWeight);
+
+                resultDiv.innerHTML = `
+                    <div class="mt-6 space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-200 text-left gap-2">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800">Available Courier Options for USA</h3>
+                                <p class="text-xs text-slate-500">Compare delivery times and total estimates below</p>
+                            </div>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-800 self-start sm:self-auto">
+                                Duty Unpaid
+                            </span>
+                        </div>
+
+                        <!-- 1st: FedEx -->
+                        <div class="bg-white border-2 border-purple-200 rounded-xl shadow-md hover:shadow-lg transition-all text-left overflow-hidden">
+                            <div class="p-4 bg-gradient-to-r from-purple-50 via-indigo-50 to-white border-b border-purple-100 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <span class="bg-purple-600 text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">1st Option</span>
+                                    <h4 class="text-lg font-bold text-slate-900">FedEx Express</h4>
+                                </div>
+                                <span class="text-xs font-semibold bg-purple-100 text-purple-800 px-3 py-1 rounded-full">
+                                    ⏱ 8-10 Days Delivery
+                                </span>
+                            </div>
+                            <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                        <div>
+                                            <p class="font-semibold text-slate-700">Destination</p>
+                                            <p class="text-slate-500">USA</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></svg>
+                                        <div>
+                                            <p class="font-semibold text-slate-700">Billable Weight</p>
+                                            <p class="text-slate-500">${billableWeight.toFixed(2)} kg ${volumetricBadge}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        <div>
+                                            <p class="font-semibold text-slate-700">Service</p>
+                                            <p class="text-slate-500">FedEx (Duty Unpaid)</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                        <div>
+                                            <p class="font-semibold text-slate-700">Estimated Delivery</p>
+                                            <p class="text-indigo-700 font-semibold">${fedexOption.tat}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-purple-50/70 rounded-xl p-4 text-center flex flex-col justify-center border border-purple-100">
+                                    <p class="text-sm font-medium text-slate-500">Estimated Total</p>
+                                    <p class="text-4xl md:text-5xl font-extrabold text-slate-800 my-1">₹${fedexCalc.cost.toFixed(2)}</p>
+                                    <p class="text-xs text-slate-500">${fedexCalc.calculationDetails}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2nd: DHL (below FedEx) -->
+                        <div class="bg-white border-2 border-amber-200 rounded-xl shadow-md hover:shadow-lg transition-all text-left overflow-hidden">
+                            <div class="p-4 bg-gradient-to-r from-amber-50 via-yellow-50 to-white border-b border-amber-100 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <span class="bg-amber-500 text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">2nd Option</span>
+                                    <h4 class="text-lg font-bold text-slate-900">DHL Express</h4>
+                                </div>
+                                <span class="text-xs font-semibold bg-amber-100 text-amber-800 px-3 py-1 rounded-full">
+                                    ⚡ 6-8 Days (Faster Delivery)
+                                </span>
+                            </div>
+                            <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                        <div>
+                                            <p class="font-semibold text-slate-700">Destination</p>
+                                            <p class="text-slate-500">USA</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></svg>
+                                        <div>
+                                            <p class="font-semibold text-slate-700">Billable Weight</p>
+                                            <p class="text-slate-500">${billableWeight.toFixed(2)} kg ${volumetricBadge}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        <div>
+                                            <p class="font-semibold text-slate-700">Service</p>
+                                            <p class="text-slate-500">DHL (Duty Unpaid)</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                        <div>
+                                            <p class="font-semibold text-slate-700">Estimated Delivery</p>
+                                            <p class="text-amber-700 font-semibold">${dhlOption.tat}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-amber-50/70 rounded-xl p-4 text-center flex flex-col justify-center border border-amber-100">
+                                    <p class="text-sm font-medium text-slate-500">Estimated Total</p>
+                                    <p class="text-4xl md:text-5xl font-extrabold text-slate-800 my-1">₹${dhlCalc.cost.toFixed(2)}</p>
+                                    <p class="text-xs text-slate-500">${dhlCalc.calculationDetails}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ${contactButtonsHTML}
+                `;
+                return;
+            }
+
+            // Single Destination Result (USA (UPS), USA Zones, Europe, UK, Canada, Australia/NZ, etc.)
+            let destination = (service.destinations || []).find(d => d.name === destName);
+            if (!destination) {
+                destination = (service.destinations && service.destinations[0]) || service;
+            }
+
+            const { cost, calculationDetails } = logic.calculateTargetCost(destination, billableWeight);
+            const displayServiceName = destination.service || serviceType;
+
+            resultDiv.innerHTML = `
                 <div class="bg-white border border-slate-200 rounded-xl shadow-lg text-left mt-6">
-                    <div class="p-4 bg-slate-50 rounded-t-xl border-b border-slate-200">
+                    <div class="p-4 bg-slate-50 rounded-t-xl border-b border-slate-200 flex justify-between items-center">
                         <h3 class="text-lg font-bold text-slate-800">Your Shipping Summary</h3>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-200 text-slate-700 rounded-full">${serviceType}</span>
                     </div>
                     <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-4 text-sm">
@@ -183,35 +344,33 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></svg>
                                 <div>
                                     <p class="font-semibold text-slate-700">Billable Weight</p>
-                                    <p class="text-slate-500">${billableWeight.toFixed(2)} kg ${volumetricWeight > weight ? '<span class="text-xs text-orange-500 font-semibold">(Volumetric)</span>' : ''}</p>
+                                    <p class="text-slate-500">${billableWeight.toFixed(2)} kg ${volumetricBadge}</p>
                                 </div>
                             </div>
-                             <div class="flex items-start">
+                            <div class="flex items-start">
                                 <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                 <div>
                                     <p class="font-semibold text-slate-700">Service</p>
-                                    <p class="text-slate-500">${serviceType}</p>
+                                    <p class="text-slate-500">${displayServiceName}</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
                                 <svg class="w-5 h-5 mr-3 text-slate-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                 <div>
                                     <p class="font-semibold text-slate-700">Estimated Delivery</p>
-                                    <p class="text-slate-500">${service.tat}</p>
+                                    <p class="text-slate-500 font-semibold">${destination.tat || '6-12 DAYS'}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-slate-100 rounded-lg p-4 text-center flex flex-col justify-center">
                             <p class="text-sm font-medium text-slate-500">Estimated Total</p>
-                            <p class="text-4xl md:text-5xl font-extrabold text-slate-800 my-1">₹${originalCost.toFixed(2)}</p>
-                            <p class="text-xs text-slate-400">${calculationDetails}</p>
+                            <p class="text-4xl md:text-5xl font-extrabold text-slate-800 my-1">₹${cost.toFixed(2)}</p>
+                            <p class="text-xs text-slate-500">${calculationDetails}</p>
                         </div>
                     </div>
                 </div>
                 ${contactButtonsHTML}
             `;
-            
-            resultDiv.innerHTML = resultHTML;
         }
     };
     
@@ -222,6 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const form = document.getElementById(formId);
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();
+                    const selectedRegion = regionSelect.value;
                     const destName = destContainer.classList.contains('hidden') ? regionSelect.value : destSelect.value;
                     const weight = parseFloat(weightInput.value);
                     const dims = {
@@ -229,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         w: parseFloat(dimsContainer.querySelector('input[placeholder="Width"]').value),
                         h: parseFloat(dimsContainer.querySelector('input[placeholder="Height"]').value)
                     };
-                    logic.calculateAndDisplay(destName, weight, resultDiv, dims, serviceType);
+                    logic.calculateAndDisplay(destName, weight, resultDiv, dims, serviceType, selectedRegion);
                 });
                 regionSelect.addEventListener('change', () => ui.handleRegionChange(regionSelect, destContainer, destSelect, serviceType));
                 toggleDims.addEventListener('click', (e) => {
@@ -272,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
             servicesData = data.services;
-            allDestinations = servicesData.flatMap(s => s.destinations);
+            allDestinations = servicesData.flatMap(s => s.destinations || []);
             
             ui.populateRegionDropdowns();
             ui.setupAnimations();
@@ -281,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Failed to load and initialize rate data:", error);
             const calculatorSection = document.getElementById('calculator');
             if (calculatorSection) {
-                 calculatorSection.innerHTML = '<div class="container mx-auto p-8"><p class="text-center text-red-600 font-semibold bg-red-100 p-4 rounded-lg">Error: Could not load pricing data. Please ensure the `rates.json` file is present and correctly formatted. Check the console for more details.</p></div>';
+                calculatorSection.innerHTML = '<div class="container mx-auto p-8"><p class="text-center text-red-600 font-semibold bg-red-100 p-4 rounded-lg">Error: Could not load pricing data. Please ensure the `rates.json` file is present and correctly formatted. Check the console for more details.</p></div>';
             }
         }
     }
