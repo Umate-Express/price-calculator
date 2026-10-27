@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umate Express | Global Courier Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=2.4">
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <header class="fixed top-0 left-0 right-0 z-50">
+        <!-- Top Festive Announcement Bar -->
+        <div class="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white text-[11px] sm:text-sm font-semibold py-1.5 px-2.5 sm:py-2 sm:px-3 text-center shadow-md flex items-center justify-center space-x-1.5 sm:space-x-3">
+            <span>🪔</span>
+            <span><strong>Diwali Offer:</strong> Ship to USA at just <strong>₹1,100/kg*</strong> (UPS Duty Paid)!</span>
+            <span class="hidden md:inline text-orange-200">|</span>
+            <a href="tel:+919325552513" class="underline hover:text-amber-200 hidden sm:inline">Free Pickup: +91 9325552513</a>
+            <a href="#calculator" class="hidden sm:inline-block bg-white text-orange-600 text-xs font-bold px-2.5 py-0.5 rounded-full hover:bg-orange-100 transition-colors ml-1">Check Rates</a>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 py-2.5 sm:py-3.5 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <img src="img/logo.png" alt="Umate Express Logo" class="h-9 sm:h-12">
+            </a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                <a href="#services" class="nav-link text-slate-600 hover:text-orange-500">Services</a>
+                <a href="#how-it-works" class="nav-link text-slate-600 hover:text-orange-500">Process</a>
+                <a href="#testimonials" class="nav-link text-slate-600 hover:text-orange-500">Testimonials</a>
+                <a href="#contact" class="nav-link text-slate-600 hover:text-orange-500">Contact</a>
+            </nav>
+            <div class="hidden md:flex items-center space-x-3">
+                <a href="track.html" class="flex items-center space-x-1.5 text-slate-700 hover:text-orange-600 font-semibold px-4 py-2 rounded-lg border border-slate-300 hover:border-orange-500 bg-white/80 hover:bg-white transition-all text-sm shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <span>Track Parcel</span>
+                </a>
+                <a href="#calculator" class="flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-5 py-2 rounded-lg hover:shadow-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:-translate-y-0.5 text-sm">
+                    <span>Get a Quote</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+            <button class="md:hidden" id="mobile-menu-button">
+                 <svg class="w-6 h-6 text-slate-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <div class="md:hidden hidden bg-white border-b border-slate-200 shadow-xl" id="mobile-menu">
+            <a href="track.html" class="flex items-center justify-between py-3 px-4 text-sm font-bold text-orange-600 bg-orange-50 hover:bg-orange-100 border-b border-orange-100">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    Track Your Parcel
+                </span>
+                <span>→</span>
+            </a>
+            <a href="#services" class="block py-2.5 px-4 text-sm text-slate-700 hover:bg-slate-100">Services</a>
+            <a href="#how-it-works" class="block py-2.5 px-4 text-sm text-slate-700 hover:bg-slate-100">Process</a>
+            <a href="#testimonials" class="block py-2.5 px-4 text-sm text-slate-700 hover:bg-slate-100">Testimonials</a>
+            <a href="#contact" class="block py-2.5 px-4 text-sm text-slate-700 hover:bg-slate-100">Contact</a>
+            <a href="#calculator" class="block py-2.5 px-4 text-sm text-orange-600 font-bold hover:bg-slate-100">Get a Quote</a>
+        </div>
+    </header>
+    <main>
+
+        <section id="calculator" class="hero-bg pt-28 pb-10 sm:pt-36 sm:pb-16 md:pt-40 md:py-24 relative overflow-hidden">
+            <!-- Background Ambient Animations (Airplanes & Diwali Firecrackers) -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+                <!-- Fireworks Canvas -->
+                <canvas id="fireworks-canvas" class="absolute inset-0 w-full h-full"></canvas>
+
+                <!-- Real Cargo Airplanes (FedEx, DHL, UPS) cruising across the sky from different directions -->
+                <!-- 1. FedEx Jet (Left to Right, climbing) -->
+                <div class="plane-container plane-fedex-fly">
+                    <div class="plane-trail trail-fedex"></div>
+                    <img src="img/plane-fedex.png" alt="FedEx Cargo Airplane" class="plane-img plane-fedex-img" />
+                </div>
+
+                <!-- 2. DHL Jet (Right to Left, cruising high) -->
+                <div class="plane-container plane-dhl-fly">
+                    <img src="img/plane-dhl.png" alt="DHL Express Airplane" class="plane-img plane-dhl-img" />
+                    <div class="plane-trail trail-dhl"></div>
+                </div>
+
+                <!-- 3. UPS Jet (Right to Left, cruising mid) -->
+                <div class="plane-container plane-ups-fly">
+                    <img src="img/plane-ups.png" alt="UPS Cargo Airplane" class="plane-img plane-ups-img" />
+                    <div class="plane-trail trail-ups"></div>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 sm:px-6 text-center relative z-10">
+                
+                <div class="mb-2 sm:mb-4">
+                    <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[11px] sm:text-sm font-semibold bg-gradient-to-r from-orange-500/20 via-amber-500/20 to-red-500/20 border border-orange-400/40 text-orange-300 mb-2 sm:mb-3 backdrop-blur-md shadow-md">
+                        <span>✨ Festive Offer</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse"></span>
+                        <span>USA Courier at just <strong>₹1,100/kg*</strong> (Above 21kg)</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase leading-tight [text-shadow:_2px_2px_8px_rgb(0_0_0_/_30%)]">
+                        Umate Express
+                    </h1>
+                    <p class="text-lg sm:text-2xl md:text-3xl font-light text-orange-400 tracking-wider mt-0.5 sm:mt-1.5">
+                        Global Courier Services
+                    </p>
+                </div>
+                <p class="max-w-2xl mx-auto text-xs sm:text-base md:text-lg text-slate-300 mb-3 sm:mb-5 px-3">
+                    Get an instant estimate for your fast, reliable, global shipment.
+                </p>
+
+                <!-- Trust Badges Strip (2x2 grid on mobile, inline-flex on desktop) -->
+                <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-1.5 sm:gap-3 mb-3.5 sm:mb-6 max-w-sm sm:max-w-none mx-auto text-[11px] sm:text-xs md:text-sm font-medium text-slate-200">
+                    <div class="flex items-center justify-center space-x-1.5 bg-white/10 backdrop-blur-md px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-white/15 shadow-sm">
+                        <span class="text-amber-400">★★★★★</span>
+                        <span class="font-bold text-white">4.9/5</span>
+                        <span class="text-slate-300">(500+ Reviews)</span>
+                    </div>
+                    <div class="flex items-center justify-center space-x-1.5 bg-white/10 backdrop-blur-md px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-white/15 shadow-sm">
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                        <span>Doorstep Pickup</span>
+                    </div>
+                    <div class="flex items-center justify-center space-x-1.5 bg-white/10 backdrop-blur-md px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-white/15 shadow-sm">
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                        <span>100% Trackable</span>
+                    </div>
+                    <div class="flex items-center justify-center space-x-1.5 bg-white/10 backdrop-blur-md px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-white/15 shadow-sm">
+                        <span>🌍</span>
+                        <span>220+ Countries</span>
+                    </div>
+                </div>
+
+                <!-- Partner Logos Card -->
+                <div class="my-2.5 sm:my-5 mx-auto py-2 px-3 sm:py-3 sm:px-5 bg-white rounded-xl max-w-[200px] sm:max-w-[280px] shadow-lg text-center">
+                    <img src="img/partner-logos.png" alt="FedEx, UPS, DHL Logos" class="w-full h-auto block mx-auto">
+                </div>
+                
+                <div class="max-w-4xl mx-auto bg-white p-3.5 sm:p-6 rounded-2xl shadow-2xl">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4 sm:mb-6">
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-800">Rate Calculator</h3>
+                        <a href="track.html" class="text-xs sm:text-sm font-semibold text-orange-600 bg-orange-100 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-orange-200 transition-colors flex items-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                            <span>Track Parcel</span>
+                        </a>
+                    </div>
+                    
+                    <div class="flex bg-slate-100 p-1 rounded-full mb-4 sm:mb-6">
+                        <button id="calc-tab-unpaid" class="calc-tab-btn active flex-1 flex items-center justify-center space-x-2 py-2 sm:py-3 px-3 sm:px-4 rounded-full text-xs sm:text-sm font-semibold">
+                            <span>Duty Unpaid</span>
+                        </button>
+                        <button id="calc-tab-paid" class="calc-tab-btn flex-1 flex items-center justify-center space-x-2 py-2 sm:py-3 px-3 sm:px-4 rounded-full text-xs sm:text-sm font-semibold">
+                            <span>Duty Paid</span>
+                        </button>
+                    </div>
+
+                    <div>
+                        <div id="calc-content-unpaid">
+                             <form id="form-unpaid" class="grid sm:grid-cols-3 gap-4 items-end">
+                                <div>
+                                    <label for="region-unpaid" class="block text-sm font-medium text-slate-700 mb-1 text-left">Destination</label>
+                                    <select id="region-unpaid" class="w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-slate-900">
+                                        <option value="">Select Destination</option>
+                                    </select>
+                                </div>
+                                <div id="dest-container-unpaid" class="hidden">
+                                    <label for="destination-unpaid" class="block text-sm font-medium text-slate-700 mb-1 text-left">Country</label>
+                                    <select id="destination-unpaid" class="w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-slate-900">
+                                        <option value="">Select Country</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="weight-unpaid" class="block text-sm font-medium text-slate-700 mb-1 text-left">Weight (kg)</label>
+                                    <input type="number" id="weight-unpaid" min="0.1" step="0.01" class="w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-slate-900" placeholder="e.g., 2.5">
+                                </div>
+                                <button type="submit" class="w-full bg-orange-500 text-white font-semibold p-3 rounded-md hover:bg-orange-600 transition-all duration-200 shadow-sm hover:shadow-md sm:col-start-3 sm:col-span-1">Calculate</button>
+                                
+                                <div class="sm:col-span-full hidden" id="dims-container-unpaid">
+                                    <p class="text-sm text-left text-slate-600 mb-2">Enter dimensions in cm (optional):</p>
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <input type="number" id="length-unpaid" class="w-full p-2 border border-slate-300 rounded-md text-slate-900" placeholder="Length">
+                                        <input type="number" id="width-unpaid" class="w-full p-2 border border-slate-300 rounded-md text-slate-900" placeholder="Width">
+                                        <input type="number" id="height-unpaid" class="w-full p-2 border border-slate-300 rounded-md text-slate-900" placeholder="Height">
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-full text-left -mt-2">
+                                    <a href="#" id="toggle-dims-unpaid" class="text-xs font-semibold text-orange-600 hover:text-orange-800">Calculate Volumetric Weight (Optional)</a>
+                                </div>
+                            </form>
+                            <div id="result-unpaid" class="mt-4 text-center"></div>
+                        </div>
+
+                        <div id="calc-content-paid" class="hidden">
+                            <form id="form-paid" class="grid sm:grid-cols-3 gap-4 items-end">
+                                <div>
+                                    <label for="region-paid" class="block text-sm font-medium text-slate-700 mb-1 text-left">Destination</label>
+                                    <select id="region-paid" class="w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-slate-900">
+                                        <option value="">Select Destination</option>
+                                    </select>
+                                </div>
+                                <div id="dest-container-paid" class="hidden">
+                                    <label for="destination-paid" class="block text-sm font-medium text-slate-700 mb-1 text-left">State / Country</label>
+                                    <select id="destination-paid" class="w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-slate-900">
+                                         <option value="">Select State / Country</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="weight-paid" class="block text-sm font-medium text-slate-700 mb-1 text-left">Weight (kg)</label>
+                                    <input type="number" id="weight-paid" min="0.1" step="0.01" class="w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-slate-900" placeholder="e.g., 2.5">
+                                </div>
+                                <button type="submit" class="w-full bg-orange-500 text-white font-semibold p-3 rounded-md hover:bg-orange-600 transition-all duration-200 shadow-sm hover:shadow-md sm:col-start-3 sm:col-span-1">Calculate</button>
+                                
+                                <div class="sm:col-span-full hidden" id="dims-container-paid">
+                                    <p class="text-sm text-left text-slate-600 mb-2">Enter dimensions in cm (optional):</p>
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <input type="number" id="length-paid" class="w-full p-2 border border-slate-300 rounded-md text-slate-900" placeholder="Length">
+                                        <input type="number" id="width-paid" class="w-full p-2 border border-slate-300 rounded-md text-slate-900" placeholder="Width">
+                                        <input type="number" id="height-paid" class="w-full p-2 border border-slate-300 rounded-md text-slate-900" placeholder="Height">
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-full text-left -mt-2">
+                                    <a href="#" id="toggle-dims-paid" class="text-xs font-semibold text-orange-600 hover:text-orange-800">Calculate Volumetric Weight (Optional)</a>
+                                </div>
+                            </form>
+                            <div id="result-paid" class="mt-4 text-center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="bg-white py-10 sm:py-16 md:py-24 animated-section">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Services Tailored To Your Needs</h2>
+                    <p class="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-slate-600">Reliable, transparent, and flexible options for every shipment.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6 sm:gap-8">
+                    <div class="bg-slate-50 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://www.legalbusinessonline.com/sites/default/files//styles/inline_images_style/public/2017-10-D-600x400.png?itok=JCDmAENM" alt="Global shipping container" class="w-full h-48 object-cover">
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">Global Reach</h3>
+                            <p class="text-slate-600">From the USA to Australia, we connect you to the world with reliable and efficient shipping services.</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://plus.unsplash.com/premium_photo-1678824564926-94a16547b42d?q=80&w=1200&auto=format&fit=crop" alt="Person using a calculator" class="w-full h-48 object-cover">
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">Transparent Pricing</h3>
+                            <p class="text-slate-600">No hidden fees. Use our calculator for an instant, accurate shipping estimate anytime.</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://annualleave.com/wp-content/uploads/2020/09/Blog-95-Why-The-Flexible-Work-Model-Is-The-Best-Option-For-Everyone.png" alt="Different types of packages" class="w-full h-48 object-cover">
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">Flexible Options</h3>
+                            <p class="text-slate-600">Choose between Duty Paid and Duty Unpaid services to best fit your shipping needs and budget.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="py-10 sm:py-16 md:py-24 animated-section">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                    <div class="relative">
+                        <img src="https://images.pexels.com/photos/7709269/pexels-photo-7709269.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Courier handing a package to a customer" class="rounded-2xl shadow-2xl w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <div class="mb-6 sm:mb-8">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Shipping in 3 Simple Steps</h2>
+                            <p class="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-slate-600">We've simplified the international shipping process to be as easy as possible.</p>
+                        </div>
+                        <div class="space-y-8">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-600 font-bold text-xl">1</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-800">Get Your Quote</h3>
+                                    <p class="text-slate-600 mt-1">Use our instant calculator to get a transparent, upfront price for your shipment.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-600 font-bold text-xl">2</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-800">Schedule a Pickup</h3>
+                                    <p class="text-slate-600 mt-1">Contact us via WhatsApp or a call to schedule a convenient pickup time from your location.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-600 font-bold text-xl">3</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-800">Track Your Parcel</h3>
+                                    <p class="text-slate-600 mt-1">Receive a tracking number and monitor your parcel's journey right to the recipient's doorstep.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="what-we-ship" class="bg-white py-10 sm:py-16 md:py-24 animated-section">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Ship Anything, Anywhere</h2>
+                    <p class="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto">From important documents to personal gifts and commercial products, we handle it all with care.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <div class="relative aspect-square image-grid-item">
+                        <img src="https://nilsiexpress.in/wp-content/uploads/2023/09/documets_delivery.jpg" class="w-full h-full object-cover rounded-lg">
+                        <div class="image-grid-overlay"><span class="image-grid-text">Documents</span></div>
+                    </div>
+                    <div class="relative aspect-square image-grid-item">
+                        <img src="https://images.unsplash.com/photo-1512909481869-0eaa1e9817ba?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover rounded-lg">
+                        <div class="image-grid-overlay"><span class="image-grid-text">Gifts & Parcels</span></div>
+                    </div>
+                    <div class="relative aspect-square image-grid-item">
+                        <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover rounded-lg">
+                        <div class="image-grid-overlay"><span class="image-grid-text">Electronics</span></div>
+                    </div>
+                    <div class="relative aspect-square image-grid-item">
+                        <img src="https://www.sflworldwide.com/wp-content/uploads/2024/07/8-Commonly-Shipped-Commercial-Goods-to-France.jpg" class="w-full h-full object-cover rounded-lg">
+                        <div class="image-grid-overlay"><span class="image-grid-text">Commercial Goods</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonial-bg py-10 sm:py-16 md:py-24 animated-section">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Trusted By Customers Worldwide</h2>
+                    <p class="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-slate-600">Our commitment to service excellence speaks for itself.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6 sm:gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg testimonial-card">
+                        <div class="flex text-amber-400 mb-2">★★★★★</div>
+                        <p class="text-slate-700 mb-4">"Umate Express made sending a package to my family in the UK incredibly easy. The price was great and it arrived faster than I expected. Highly recommend!"</p>
+                        <div class="font-bold text-slate-900">- Anjali S.</div>
+                        <div class="text-sm text-slate-500">Mumbai, India</div>
+                    </div>
+                     <div class="bg-white p-8 rounded-xl shadow-lg testimonial-card">
+                        <div class="flex text-amber-400 mb-2">★★★★★</div>
+                        <p class="text-slate-700 mb-4">"The duty-paid option for the US was a lifesaver. No surprise fees for the recipient. The entire process was smooth and professional."</p>
+                        <div class="font-bold text-slate-900">- Raj P.</div>
+                        <div class="text-sm text-slate-500">Pune, India</div>
+                    </div>
+                     <div class="bg-white p-8 rounded-xl shadow-lg testimonial-card">
+                        <div class="flex text-amber-400 mb-2">★★★★★</div>
+                        <p class="text-slate-700 mb-4">"Fantastic service! The team was super helpful on WhatsApp, answering all my questions for a shipment to Germany. Will definitely use them again."</p>
+                        <div class="font-bold text-slate-900">- Priya K.</div>
+                        <div class="text-sm text-slate-500">Bangalore, India</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact" class="bg-slate-900 text-white">
+        <div class="container mx-auto px-4 sm:px-6 py-10 sm:py-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+                <div class="md:col-span-2 lg:col-span-1">
+                     <a href="#" class="flex items-center">
+                        <img src="img/logo.png" alt="Umate Express Logo" class="h-10 sm:h-12">
+                    </a>
+                    <p class="text-slate-400 mt-3 sm:mt-4 mb-4 sm:mb-6 text-sm">Your trusted partner for worldwide courier services.</p>
+                    <h4 class="font-semibold text-slate-200 mb-3">Connect with us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.582 0 0 .582 0 1.297v21.406C0 23.418.582 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.743 0 1.325-.582 1.325-1.297V1.297C24 .582 23.418 0 22.675 0z"/></svg></a>
+                        <a href="#" class="text-slate-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.223.085c.645 1.956 2.52 3.375 4.738 3.414A9.87 9.87 0 010 17.53a13.94 13.94 0 007.548 2.212c9.058 0 14.01-7.502 14.01-14.013 0-.213-.005-.426-.015-.637a10.035 10.035 0 002.456-2.54z"/></svg></a>
+                        <a href="#" class="text-slate-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.802c-3.143 0-3.505.011-4.733.067-2.612.119-3.791 1.3-3.91 3.91-.056 1.228-.067 1.586-.067 4.733s.011 3.505.067 4.733c.119 2.613 1.3 3.792 3.91 3.91 1.228.056 1.59.067 4.733.067s3.505-.011 4.733-.067c2.613-.119 3.792-1.3 3.91-3.91.056-1.228.067-1.586-.067-4.733s-.011-3.505-.067-4.733c-.119-2.612-1.3-3.791-3.91-3.91-1.228-.056-1.586-.067-4.733-.067zM12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zm0 1.802a1.948 1.948 0 110 3.896 1.948 1.948 0 010-3.896zM17.636 6.182a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="#calculator" class="hover:text-white">Rate Calculator</a></li>
+                        <li><a href="track.html" class="hover:text-white">Track Parcel</a></li>
+                        <li><a href="#services" class="hover:text-white">Our Services</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white">How It Works</a></li>
+                    </ul>
+                </div>
+                <div>
+                     <h4 class="font-semibold text-lg mb-4">Contact Us</h4>
+                     <p class="text-slate-400 mb-4">Have questions? We're here to help!</p>
+                     <div class="space-y-3">
+                         <a href="tel:+919325552513" class="inline-flex items-center space-x-2 bg-orange-500 text-white font-semibold px-4 py-2 rounded-md hover:bg-orange-600 transition-colors w-full justify-center">
+                            <span>Call Now</span>
+                         </a>
+                         <a href="https://wa.me/919325552513" target="_blank" class="inline-flex items-center space-x-2 bg-green-500 text-white font-semibold px-4 py-2 rounded-md hover:bg-green-600 transition-colors w-full justify-center">
+                             <span>Text on WhatsApp</span>
+                         </a>
+                     </div>
+                </div>
+                 <div>
+                     <h4 class="font-semibold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-700 text-center text-slate-500 text-xs sm:text-sm">
+                &copy; 2025 Umate Express. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Quick-Chat Widget (Optimized for Mobile) -->
+    <a href="https://wa.me/919325552513?text=Hi%20Umate%20Express%2C%20I%20have%20an%20enquiry%20regarding%20international%20courier%20services." target="_blank" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl hover:scale-110 transition-all duration-300 group" aria-label="Chat on WhatsApp">
+        <span class="absolute -top-1 -right-1 flex h-3 w-3 sm:h-3.5 sm:w-3.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 sm:h-3.5 sm:w-3.5 bg-green-500"></span>
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-7 sm:w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.387 1.88 6.06l-1.429 5.215 5.045-1.328zM9.351 8.29c-.196-.288-.45-.447-.72-.451-.271-.004-.543.015-.794.046-.252.031-.539.11-.795.331-.255.22-.525.539-.684.87-.159.331-.318.684-.331 1.054-.013.37.063.73.222 1.074.159.344.38.685.636.99.255.304.574.636.951.99.377.354.795.684 1.238.99.525.344 1.05.623 1.636.82.585.196 1.157.294 1.733.307.576.013 1.14-.098 1.636-.344.496-.246.892-.608 1.157-.99.266-.381.447-.824.524-1.29.078-.466.063-1.012-.046-1.464-.109-.452-.331-.839-.623-1.14-.292-.302-.684-.467-1.129-.496-.445-.028-.89.046-1.29.222-.399.176-.684.451-.927.795-.242.344-.45.73-.623.99s-.331.381-.496.425c-.165.043-.344.031-.509-.046-.165-.078-.381-.222-.636-.425-.255-.203-.541-.466-.867-.795-.325-.331-.608-.719-.824-1.14a4.575 4.575 0 0 1-.585-1.413c-.046-.222-.031-.452.046-.684.078-.231.222-.425.425-.574.203-.148.425-.222.684-.234.259-.013.509.031.703.117.195.086.344.176.45.294s.195.255.255.381c.061.125.093.255.093.381v.004c-.013.125-.061.255-.132.381-.071.125-.176.222-.294.294-.118.071-.255.109-.408.109-.153 0-.3-.046-.425-.118-.125-.07-.222-.176-.294-.294-.07-.118-.109-.255-.109-.408 0-.153.046-.3.118-.425.07-.125.176-.222.294-.294.118-.071.255-.118.408-.118.153 0 .3.046.425.117s.222.176.294.294c.07.118.109.255.109.408v.016c-.013.153-.061.294-.148.425-.086.132-.203.255-.331.344-.128.09-.283.148-.45.176-.168.028-.344.016-.509-.046-.165-.062-.317-.148-.45-.266-.132-.118-.255-.255-.344-.425-.09-.171-.148-.354-.176-.541-.028-.187-.016-.37.031-.541.048-.171.125-.331.222-.48.098-.148.222-.283.361-.399.139-.118.294-.222.466-.294.171-.071.344-.118.539-.132.195-.013.381 0 .56.046.179.047.344.118.496.222.153.105.283.231.381.381.098.151.168.317.203.496.035.179.047.354.031.541-.016.187-.07.354-.148.509-.078.155-.176.294-.294.425-.118.131-.255.255-.408.344-.153.09-.317.168-.496.222-.178.054-.369.086-.56.086-.207 0-.414-.04-.61-.118-.195-.078-.37-.176-.539-.294-.17-.118-.318-.266-.45-.425-.132-.159-.237-.344-.318-.541-.08-.196-.118-.408-.118-.623 0-.222.046-.431.118-.636.072-.205.176-.381.294-.539.118-.159.255-.294.425-.408.171-.114.354-.195.541-.255.187-.061.381-.093.576-.093.207 0 .408.04.585.109.177.07.344.168.496.283.153.114.283.255.399.408.117.153.203.317.266.496.062.179.093.369.093.56v.004z"/></svg>
+        <span class="hidden md:group-hover:block absolute right-16 bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-xl">
+            Chat on WhatsApp
+        </span>
+    </a>
+
+    <script src="app.js?v=2.4"></script> 
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Archives
+*.7z
+*.zip
+*.rar
+*.tar.gz
+
+# System files
+Thumbs.db
+Desktop.ini
+.DS_Store
