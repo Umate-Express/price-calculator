@@ -300,22 +300,30 @@ Please confirm the booking and schedule my pickup!`;
                     chargedWeight = Math.ceil(chargedWeight);
                 }
 
-                const tableKeys = Object.keys(target.table).map(Number).sort((a, b) => a - b);
-                let matchedKey = tableKeys.find(k => k >= chargedWeight);
-                if (!matchedKey) {
-                    matchedKey = tableKeys[tableKeys.length - 1];
-                }
-                const entry = target.table[matchedKey.toString()];
                 if (chargedWeight <= 5.0) {
+                    const tableKeys = Object.keys(target.table).map(Number).filter(k => k <= 5.0).sort((a, b) => a - b);
+                    const matchedKey = tableKeys.find(k => k >= chargedWeight) || 5.0;
+                    const entry = target.table[matchedKey.toString()];
                     cost = entry.cost;
                     calculationDetails = `Flat rate for up to ${matchedKey} kg slab.`;
                 } else {
-                    if (chargedWeight <= tableKeys[tableKeys.length - 1]) {
-                        cost = entry.cost;
+                    // Over 5kg: determine applicable per-kg rate
+                    let rate = 0;
+                    if (target.table[chargedWeight.toString()]) {
+                        rate = target.table[chargedWeight.toString()].rate;
+                        cost = target.table[chargedWeight.toString()].cost;
+                    } else if (target.rates) {
+                        const rateBrackets = Object.keys(target.rates).map(Number).sort((a, b) => a - b);
+                        const applicableBracket = rateBrackets.filter(b => b <= chargedWeight).pop() || rateBrackets[0];
+                        rate = target.rates[applicableBracket];
+                        cost = rate * chargedWeight;
                     } else {
-                        cost = entry.rate * chargedWeight;
+                        const tableKeys = Object.keys(target.table).map(Number).sort((a, b) => a - b);
+                        const lastKey = tableKeys[tableKeys.length - 1];
+                        rate = target.table[lastKey.toString()].rate;
+                        cost = rate * chargedWeight;
                     }
-                    calculationDetails = `₹${entry.rate.toFixed(2)}/kg × ${chargedWeight.toFixed(1)}kg.`;
+                    calculationDetails = `₹${rate.toFixed(2)}/kg × ${chargedWeight.toFixed(1)}kg.`;
                 }
             } else if (target.slabs) {
                 // Slabs pricing (USA FedEx, USA DHL, USA UPS)
@@ -359,13 +367,17 @@ Please confirm the booking and schedule my pickup!`;
                 }
             } else if (target.rates) {
                 const rateBrackets = Object.keys(target.rates).map(Number).sort((a, b) => a - b);
-                let applicableBracket = rateBrackets.filter(b => b <= billableWeight).pop();
-                if (!applicableBracket) {
-                    applicableBracket = rateBrackets[0];
+                const minBracket = rateBrackets[0];
+                if (billableWeight < minBracket) {
+                    const minRate = target.rates[minBracket.toString()];
+                    cost = minRate * minBracket;
+                    calculationDetails = `₹${minRate.toFixed(2)}/kg × ${minBracket}kg (Min billable weight: ${minBracket}kg).`;
+                } else {
+                    let applicableBracket = rateBrackets.filter(b => b <= billableWeight).pop() || minBracket;
+                    const applicableRate = target.rates[applicableBracket.toString()];
+                    cost = applicableRate * billableWeight;
+                    calculationDetails = `₹${applicableRate.toFixed(2)}/kg × ${billableWeight.toFixed(2)}kg.`;
                 }
-                const applicableRate = target.rates[applicableBracket];
-                cost = applicableRate * billableWeight;
-                calculationDetails = `₹${applicableRate.toFixed(2)}/kg × ${billableWeight.toFixed(2)}kg.`;
             }
 
             return { cost, calculationDetails };
