@@ -108,11 +108,25 @@ Please confirm the booking and schedule my pickup!`;
                 }
             }
 
-            destContainer.classList.add('hidden');
-            form.classList.replace('sm:grid-cols-4', 'sm:grid-cols-3');
+            const hasMultipleDestinations = service && service.destinations && service.destinations.length > 1;
             const button = form.querySelector('button[type="submit"]');
-            if (button) {
-                button.classList.replace('sm:col-start-4', 'sm:col-start-3');
+
+            if (hasMultipleDestinations) {
+                destContainer.classList.remove('hidden');
+                form.classList.replace('sm:grid-cols-3', 'sm:grid-cols-4');
+                if (button) {
+                    button.classList.replace('sm:col-start-3', 'sm:col-start-4');
+                }
+                destSelect.innerHTML = '<option value="">Select Country</option>';
+                service.destinations.slice().sort((a, b) => a.name.localeCompare(b.name)).forEach(dest => {
+                    destSelect.add(new Option(dest.name, dest.name));
+                });
+            } else {
+                destContainer.classList.add('hidden');
+                form.classList.replace('sm:grid-cols-4', 'sm:grid-cols-3');
+                if (button) {
+                    button.classList.replace('sm:col-start-4', 'sm:col-start-3');
+                }
             }
         },
 
